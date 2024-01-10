@@ -1,0 +1,39 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+
+void printMatrix(const std::vector<std::vector<int>>& matrix) {
+  for (const auto& row : matrix) {
+    for (int num : row) {
+      std::cout << num << ' ';
+    }
+    std::cout << std::endl;
+  }
+}
+void swapColumns(std::vector<std::vector<int>>& matrix, int col1, int col2) {
+  for (int i = 0; i < matrix.size(); i++) {
+    std::swap(matrix[i][col1], matrix[i][col2]);
+  }
+}
+
+int main() {
+  std::ifstream inputFile("input.txt");
+  int rows, cols;
+  inputFile >> rows >> cols;
+  std::vector<std::vector<int>> matrix(rows, std::vector<int>(cols));
+
+  for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < cols; j++) {
+      inputFile >> matrix[i][j];
+    }
+  }
+  std::cout << "Original matrix:" << std::endl;
+  printMatrix(matrix);
+  int col1, col2;
+  std::cout << "Enter the numbers of the columns to swap: ";
+  std::cin >> col1 >> col2;
+  swapColumns(matrix, col1, col2);
+  std::cout << "Matrix after swapping columns " << col1 << " and " << col2 << ":" << std::endl;
+  printMatrix(matrix);
+  return 0;
+}
